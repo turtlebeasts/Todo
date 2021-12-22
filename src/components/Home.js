@@ -46,7 +46,7 @@ export default function Home() {
                 <div className='row'>
                     <div className='col-lg-2 col-sm-0'></div>
                     <div className='col-lg-8 col-sm-12'>
-                        <h5 className="card-title">Your Todo List</h5><small>click your list mark as done</small>
+                        <h5 className="card-title">Your Todo List</h5><small>click your list to mark as done</small>
                         <div className="list-group my-2">
                             {list.map(data => { return (<li className="list-group-item" onClick={markDone} done={false} key={data}>{data}</li>) })}
                         </div>
