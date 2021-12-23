@@ -54,7 +54,7 @@ export default function Home() {
                     <div className='col-lg-8 col-sm-12'>
                         <h5 className="card-title">Your Todo List</h5><small>click your list to mark as done</small>
                         <div className="list-group my-2">
-                            {list.map(data => { return (<li className="list-group-item" onClick={markDone} key={data}>{data}</li>) })}
+                            {list.map(data => { return (<li className="list-group-item" style={DarkMode === 'true'?{color: 'white', backgroundColor: '#121212'}:{color: 'black',backgroundColor: 'white'}} onClick={markDone} key={data}>{data}</li>) })}
                         </div>
                         <div className="input-group mb-3">
                             <span className="input-group-text">Add Todo</span>
