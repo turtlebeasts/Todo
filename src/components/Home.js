@@ -5,7 +5,10 @@ export default function Home() {
     var [list, setItems] = useState([])
     const [DarkMode, setTheme] = useState(sessionStorage.getItem("DarkMode"))
     
-    if(DarkMode === 'true'){
+    if(DarkMode === null){
+        sessionStorage.setItem('DarkMode','false')
+        setTheme('false')
+      }else if(DarkMode === 'true'){
         document.body.setAttribute("style", "background-image: url('https://us.123rf.com/450wm/lisaalisaill/lisaalisaill1801/lisaalisaill180100097/93447879-starry-sky-hand-draw-seamless-pattern-doodle-rings-and-crosses-in-galaxy-and-stars-style-endless-bac.jpg?ver=6')")
     }else{
         document.body.setAttribute("style","background-image: none")
