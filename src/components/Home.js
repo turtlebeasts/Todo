@@ -1,18 +1,24 @@
 import React, { useState } from 'react'
 
 export default function Home() {
-    var [color, setColor] = useState('#ffffff')
-    var [text, setText] = useState('black')
     var [todo, setTodo] = useState('')
     var [list, setItems] = useState([])
+    const [DarkMode, setTheme] = useState(sessionStorage.getItem("DarkMode"))
+    
+    if(DarkMode === 'true'){
+        document.body.setAttribute("style", "background-image: url('https://us.123rf.com/450wm/lisaalisaill/lisaalisaill1801/lisaalisaill180100097/93447879-starry-sky-hand-draw-seamless-pattern-doodle-rings-and-crosses-in-galaxy-and-stars-style-endless-bac.jpg?ver=6')")
+    }else{
+        document.body.setAttribute("style","background-image: none")
+    }
 
     const changeHandler = (event) => {
         if (event.target.checked === true) {
-            setColor('#121212')
-            setText('white')
+            sessionStorage.setItem("DarkMode","true")
+            setTheme('true')
         } else {
-            setColor('#ffffff')
-            setText('black')
+            
+            sessionStorage.setItem("DarkMode","false")
+            setTheme('false')
         }
     }
     const keyBoardHandle = (event) => {
@@ -35,22 +41,22 @@ export default function Home() {
     }
     return (
         <div className="card">
-            <div className="card-header">
+            <div className="card-header" style={DarkMode === 'false'?{backgroundColor: '#ffffff'}:{background: 'linear-gradient(180deg, rgba(56,56,56,1) 0%, rgba(36,36,36,1) 5%, rgba(0,0,0,1) 100%)'}}>
                 <div className="form-check form-switch">
                     <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked"
-                        onChange={changeHandler} />
-                    <label className="form-check-label">Toggle Dark Mode</label>
+                        onChange={changeHandler} defaultChecked={DarkMode === 'false'? false: true} />
+                    <label className="form-check-label" style={DarkMode === 'true'?{color: 'white'}:{color: 'black'}}>Toggle Dark Mode</label>
                 </div>
             </div>
-            <div className="card-body" style={{backgroundColor: color, color: text}}>
+            <div className="card-body" style={DarkMode === 'false'?{backgroundColor: '#ffffff', color: 'black'}:{backgroundColor: '#121212', color: 'white'}}>
                 <div className='row'>
                     <div className='col-lg-2 col-sm-0'></div>
                     <div className='col-lg-8 col-sm-12'>
                         <h5 className="card-title">Your Todo List</h5><small>click your list to mark as done</small>
                         <div className="list-group my-2">
-                            {list.map(data => { return (<li className="list-group-item" onClick={markDone} done={false} key={data}>{data}</li>) })}
+                            {list.map(data => { return (<li className="list-group-item" onClick={markDone} key={data}>{data}</li>) })}
                         </div>
-                        <div className="input-group mb-3" style={{ backgroundColor: color, color: text }}>
+                        <div className="input-group mb-3">
                             <span className="input-group-text">Add Todo</span>
                             <input value={todo} onChange={keyBoardHandle} className="form-control" />
                             <button onClick={submitHandle} className="btn btn-warning">Add</button>
@@ -59,7 +65,7 @@ export default function Home() {
                     <div className='col-lg-2 col-sm-0'></div>
                 </div>
             </div>
-            <div className="card-footer text-muted">
+            <div className="card-footer text-muted" style={DarkMode === 'false'?{backgroundColor: '#ffffff'}:{background: 'linear-gradient(0deg, rgba(56,56,56,1) 0%, rgba(36,36,36,1) 5%, rgba(0,0,0,1) 100%)'}}>
                 <center>
                     <button className="btn btn-danger btn-sm" onClick={reset}>Reset</button>
                 </center>
