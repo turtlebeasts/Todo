@@ -1,12 +1,9 @@
 import React, { useState } from 'react'
-import Message from "./Message"
 
 export default function Home() {
     var [todo, setTodo] = useState('')
     var [list, setItems] = useState([])
     const [DarkMode, setTheme] = useState(sessionStorage.getItem("DarkMode"))
-    const [alert, ToggleAlert] = useState(false)
-    const [alertmssg, setmssg] = useState('')
     
     if(DarkMode === null){
         sessionStorage.setItem('DarkMode','false')
@@ -17,24 +14,13 @@ export default function Home() {
         document.body.setAttribute("style","background-image: none")
     }
 
-    const showMessage = (mssg) =>{
-        ToggleAlert(true)
-        setmssg(mssg)
-        setTimeout(()=>{
-            ToggleAlert(false)
-            setmssg('')
-        },1000)
-    }
-
     const changeHandler = (event) => {
         if (event.target.checked === true) {
             sessionStorage.setItem("DarkMode","true")
             setTheme('true')
-            showMessage('DarkMode Toggled')
         } else {
             sessionStorage.setItem("DarkMode","false")
             setTheme('false')
-            showMessage('DarkMode Toggled')
         }
     }
     const keyBoardHandle = (event) => {
@@ -44,7 +30,6 @@ export default function Home() {
     const submitHandle = () => {
         setItems(oldItems => [...oldItems, todo])
         setTodo('')
-        showMessage('Todo Added')
     }
     const markDone = (event) => {
         if (event.target.style.textDecoration === '') {
@@ -88,7 +73,6 @@ export default function Home() {
                 </center>
             </div>
         </div>
-        {alert?<Message Message={alertmssg} />:''}
         </>
     )
 }
